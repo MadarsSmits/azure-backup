@@ -28,7 +28,7 @@
         },
         "LinuxOSVersion": {
             "type": "string",
-            "defaultValue": "14.04.2-LTS",
+            "defaultValue": "18.04-LTS",
             "metadata": {
                 "description": "The Linux version for the VM. This will pick a fully patched image of this given Linux version."
             }
@@ -52,9 +52,7 @@
     "variables": {
         "nicName1": "s1-Lin-NIC",
         "nicName2": "s1-Win-NIC",
-        "nicName3": "s2-Win-NIC",
         "nicName4": "s3-Veeam-NIC",
-        "nicName5": "s4-CloudBerry-NIC",
         "nicName6": "s5-DC-NIC",
         "nicName7": "s5-Backup-NIC",
         "addressPrefix": "10.2.0.0/16",
@@ -62,16 +60,12 @@
         "subnetPrefix": "10.2.0.0/24",
         "publicIPAddressName1": "s1-Lin-PublicIP",
         "publicIPAddressName2": "s1-Win-PublicIP",
-        "publicIPAddressName3": "s2-Win-PublicIP",
         "publicIPAddressName4": "s3-Veeam-PublicIP",
-        "publicIPAddressName5": "s4-CloudBerry-PublicIP",
         "publicIPAddressName6": "s5-DC-PublicIP",
         "publicIPAddressName7": "s5-Backup-PublicIP",
         "vmName1": "s1-Lin-VM",
         "vmName2": "s1-Win-VM",
-        "vmName3": "s2-Win-VM",
         "vmName4": "s3-Veeam-VM",
-        "vmName5": "s4-CloudBerry-VM",
         "vmName6": "s5-DC-VM",
         "vmName7": "s5-Backup-VM",
         "virtualNetworkName": "valis2-VNET",
@@ -178,25 +172,7 @@
     {
         "apiVersion": "2016-03-30",
         "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[variables('publicIPAddressName3')]",
-        "location": "[parameters('location')]",
-        "properties": {
-            "publicIPAllocationMethod": "Dynamic"
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('publicIPAddressName4')]",
-        "location": "[parameters('location')]",
-        "properties": {
-            "publicIPAllocationMethod": "Dynamic"
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[variables('publicIPAddressName5')]",
         "location": "[parameters('location')]",
         "properties": {
             "publicIPAllocationMethod": "Dynamic"
@@ -304,33 +280,6 @@
     {
         "apiVersion": "2016-03-30",
         "type": "Microsoft.Network/networkInterfaces",
-        "name": "[variables('nicName3')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]",
-            "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName3'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
-        ],
-        "properties": {
-            "ipConfigurations": [
-                {
-                    "name": "ipconfig1",
-                    "properties": {
-                        "privateIPAllocationMethod": "Dynamic",
-                        "publicIPAddress": {
-                            "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName3'))]"
-                        },
-                        "subnet": {
-                            "id": "[variables('subnetRef')]"
-                        }
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkInterfaces",
         "name": "[variables('nicName4')]",
         "location": "[parameters('location')]",
         "dependsOn": [
@@ -346,33 +295,6 @@
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIPAddress": {
                             "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName4'))]"
-                        },
-                        "subnet": {
-                            "id": "[variables('subnetRef')]"
-                        }
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkInterfaces",
-        "name": "[variables('nicName5')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]",
-            "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName5'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
-        ],
-        "properties": {
-            "ipConfigurations": [
-                {
-                    "name": "ipconfig1",
-                    "properties": {
-                        "privateIPAllocationMethod": "Dynamic",
-                        "publicIPAddress": {
-                            "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName5'))]"
                         },
                         "subnet": {
                             "id": "[variables('subnetRef')]"
@@ -446,7 +368,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_A1_v2"
+                "vmSize": "Standard_DS1_v2"
             },
             "osProfile": {
                 "computerName": "[variables('vmName1')]",
@@ -483,7 +405,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
+                "vmSize": "Standard_DS1_v2"
             },
             "osProfile": {
                 "computerName": "[variables('vmName2')]",
@@ -513,43 +435,6 @@
     {
         "apiVersion": "2018-06-01",
         "type": "Microsoft.Compute/virtualMachines",
-        "name": "[variables('vmName3')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName3'))]"
-        ],
-        "properties": {
-            "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
-            },
-            "osProfile": {
-                "computerName": "[variables('vmName3')]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
-            },
-            "storageProfile": {
-                "imageReference": {
-                    "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "[parameters('windowsOSVersion')]",
-                    "version": "latest"
-                },
-                "osDisk": {
-                    "createOption": "FromImage"
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces": [
-                    {
-                        "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName3'))]"
-                    }
-                ]
-            }
-        }
-    },
-    {
-        "apiVersion": "2018-06-01",
-        "type": "Microsoft.Compute/virtualMachines",
         "name": "[variables('vmName4')]",
         "location": "[parameters('location')]",
         "dependsOn": [
@@ -557,7 +442,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
+                "vmSize": "Standard_F4s"
             },
             "osProfile": {
                 "computerName": "[variables('vmName4')]",
@@ -592,43 +477,6 @@
     {
         "apiVersion": "2018-06-01",
         "type": "Microsoft.Compute/virtualMachines",
-        "name": "[variables('vmName5')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName5'))]"
-        ],
-        "properties": {
-            "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
-            },
-            "osProfile": {
-                "computerName": "[variables('vmName5')]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
-            },
-            "storageProfile": {
-                "imageReference": {
-                    "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "[parameters('windowsOSVersion')]",
-                    "version": "latest"
-                },
-                "osDisk": {
-                    "createOption": "FromImage"
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces": [
-                    {
-                        "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName5'))]"
-                    }
-                ]
-            }
-        }
-    },
-    {
-        "apiVersion": "2018-06-01",
-        "type": "Microsoft.Compute/virtualMachines",
         "name": "[variables('vmName6')]",
         "location": "[parameters('location')]",
         "dependsOn": [
@@ -636,7 +484,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
+                "vmSize": "Standard_DS2_v2"
             },
             "osProfile": {
                 "computerName": "[variables('vmName6')]",
@@ -673,7 +521,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_A2_v2"
+                "vmSize": "Standard_DS3_v2"
             },
             "osProfile": {
                 "computerName": "[variables('vmName7')]",
