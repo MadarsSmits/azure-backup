@@ -1,2 +1,2 @@
 # azure-backup
-Azure Workshop "Valis v0.1"
+Azure Workshop "Valis v0.2"
