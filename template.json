@@ -4,19 +4,10 @@
     "parameters": {
         "sr_name": {
             "type": "string",
-            "defaultValue": "SQUALIO-Demo"
-        },
-        "storageAccountType": {
-            "type": "string",
-            "defaultValue": "Premium_LRS"
+            "defaultValue": "valis2-BSR"
         }
     },
     "variables": {
-        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'squalio')]",
-        "addressPrefix": "192.168.0.0/16",
-        "subnetName": "Subnet",
-        "subnetPrefix": "192.168.1.0/24",
-        "virtualNetworkName": "SQUALIO-VNET"
     },
     "resources": [
         {
@@ -29,38 +20,6 @@
                 "tier": "Standard"
             },
             "properties": {}
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccountName')]",
-            "apiVersion": "2018-02-01",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "[parameters('storageAccountType')]"
-            },
-            "kind": "Storage",
-            "properties": {}
-        },
-        {
-            "apiVersion": "2016-03-30",
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('virtualNetworkName')]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[variables('addressPrefix')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[variables('subnetName')]",
-                        "properties": {
-                            "addressPrefix": "[variables('subnetPrefix')]"
-                        }
-                    }
-                ]
-            }
         }
     ]
 }
