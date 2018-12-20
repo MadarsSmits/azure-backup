@@ -4,7 +4,7 @@
     "parameters": {
         "sr_name": {
             "type": "string",
-            "defaultValue": "valis2-BSR"
+            "defaultValue": "valis2-BSR2"
         },
         "adminUsername": {
             "type": "string",
@@ -33,10 +33,6 @@
                 "description": "The Linux version for the VM. This will pick a fully patched image of this given Linux version."
             }
         },
-        "VeeamVersion": {
-            "type": "string",
-            "defaultValue": "veeamcloudcconnectenterprise"
-        },
         "location": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -46,30 +42,27 @@
         },
         "storageAccountType": {
             "type": "string",
-            "defaultValue": "Standard_LRS"
+            "defaultValue": "Premium_LRS"
         }
     },
     "variables": {
         "nicName1": "S1-Linux-NIC",
         "nicName2": "S1-Windows-NIC",
-        "nicName4": "S3-Veeam-NIC",
         "nicName6": "S5-DC-NIC",
         "nicName7": "S5-BServer-NIC",
-        "addressPrefix": "10.2.0.0/16",
+        "addressPrefix": "10.3.0.0/16",
         "subnetName": "Subnet",
-        "subnetPrefix": "10.2.0.0/24",
+        "subnetPrefix": "10.3.0.0/24",
         "publicIPAddressName1": "S1-Linux-PublicIP",
         "publicIPAddressName2": "S1-Windows-PublicIP",
-        "publicIPAddressName4": "S3-Veeam-PublicIP",
         "publicIPAddressName6": "S5-DC-PublicIP",
         "publicIPAddressName7": "S5-BServer-PublicIP",
         "vmName1": "S1-Linux-VM",
         "vmName2": "S1-Windows-VM",
-        "vmName4": "S3-Veeam-VM",
         "vmName6": "S5-DC-VM",
         "vmName7": "S5-BServer-VM",
-        "virtualNetworkName": "valis2-VNET",
-        "nsgName": "valis2-NSG",
+        "virtualNetworkName": "valis2-west-VNET",
+        "nsgName": "valis2-west-NSG",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
         "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'backup')]"
     },
@@ -172,15 +165,6 @@
     {
         "apiVersion": "2016-03-30",
         "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[variables('publicIPAddressName4')]",
-        "location": "[parameters('location')]",
-        "properties": {
-            "publicIPAllocationMethod": "Dynamic"
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('publicIPAddressName6')]",
         "location": "[parameters('location')]",
         "properties": {
@@ -268,33 +252,6 @@
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIPAddress": {
                             "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName2'))]"
-                        },
-                        "subnet": {
-                            "id": "[variables('subnetRef')]"
-                        }
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkInterfaces",
-        "name": "[variables('nicName4')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]",
-            "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName4'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
-        ],
-        "properties": {
-            "ipConfigurations": [
-                {
-                    "name": "ipconfig1",
-                    "properties": {
-                        "privateIPAllocationMethod": "Dynamic",
-                        "publicIPAddress": {
-                            "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName4'))]"
                         },
                         "subnet": {
                             "id": "[variables('subnetRef')]"
@@ -405,7 +362,7 @@
         ],
         "properties": {
             "hardwareProfile": {
-                "vmSize": "Standard_DS1_v2"
+                "vmSize": "Standard_DS2_v2"
             },
             "osProfile": {
                 "computerName": "[variables('vmName2')]",
@@ -430,48 +387,6 @@
                     }
                 ]
             }
-        }
-    },
-    {
-        "apiVersion": "2018-06-01",
-        "type": "Microsoft.Compute/virtualMachines",
-        "name": "[variables('vmName4')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName4'))]"
-        ],
-        "properties": {
-            "hardwareProfile": {
-                "vmSize": "Standard_F4s"
-            },
-            "osProfile": {
-                "computerName": "[variables('vmName4')]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
-            },
-            "storageProfile": {
-                "imageReference": {
-                    "publisher": "veeam",
-                    "offer": "veeam-cloud-connect-enterprise",
-                    "sku": "[parameters('VeeamVersion')]",
-                    "version": "1.2.0"
-                },
-                "osDisk": {
-                    "createOption": "FromImage"
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces": [
-                    {
-                        "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName4'))]"
-                    }
-                ]
-            }
-        },
-        "plan": {
-            "name": "veeamcloudcconnectenterprise",
-            "publisher": "veeam",
-            "product": "veeam-cloud-connect-enterprise"
         }
     },
     {
