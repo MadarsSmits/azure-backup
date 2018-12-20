@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "rgValisNorth": {
+            "type": "string",
+            "defaultValue": "valis2-North"
+        },
+        "rgValisWest": {
+            "type": "string",
+            "defaultValue": "valis2-West"
+        },
+        "location-north": {
+            "type": "string",
+            "defaultValue": "northeurope"
+        },
+        "location-west": {
+            "type": "string",
+            "defaultValue": "westeurope"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('location-north')]",
+            "name": "[parameters('rgValisNorth')]",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('location-west')]",
+            "name": "[parameters('rgValisWest')]",
+            "properties": {}
+        }
+    ],
+    "outputs": {}
+}
