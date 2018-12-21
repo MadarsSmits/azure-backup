@@ -8,7 +8,7 @@ az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmit
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North --debug<br/><br/>
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West --debug  
 
-*) valis2-North:
+__valis2-North:__
 - S3-Veeam-NIC
 - S3-Veeam-PublicIP
 - S3-Veeam-VM
@@ -17,7 +17,7 @@ az group deployment create --template-uri https://raw.githubusercontent.com/Mada
 - valis2-north-VNET
 - z3f4jqnr5rbhorestore (Storage Account)
 
-*) valis2-West:
+__valis2-West:__
 - lokrgawxn4wkabackup (Storage Account)
 - S1-Linux-NIC
 - S1-Linux-PublicIP
