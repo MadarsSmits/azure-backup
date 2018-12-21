@@ -167,7 +167,7 @@
                     "publisher": "veeam",
                     "offer": "veeam-cloud-connect-enterprise",
                     "sku": "[parameters('VeeamVersion')]",
-                    "version": "1.2.0"
+                    "version": "latest"
                 },
                 "osDisk": {
                     "createOption": "FromImage"
