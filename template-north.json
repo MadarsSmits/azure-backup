@@ -197,6 +197,29 @@
         },
         "kind": "StorageV2",
         "properties": {}
+    },
+    {
+        "apiVersion": "2015-06-15",
+        "type": "Microsoft.Compute/virtualMachines/extensions",
+        "name": "S3-Veeam-VM/lower-rdp-security-script",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', variables('vmName4'))]"
+        ],
+        "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.9",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+                "fileUris": [
+                    "https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/scripts/lower-rdp-security.ps1"
+                ]
+            },
+            "protectedSettings": {
+                "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File lower-rdp-security.ps1"
+            }
+        }
     }
 ],
 "outputs": {}
