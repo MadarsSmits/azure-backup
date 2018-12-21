@@ -44,6 +44,10 @@
             "type": "string",
             "defaultValue": "Premium_LRS"
         },
+        "storageAccountType2": {
+            "type": "string",
+            "defaultValue": "Standard_LRS"
+        },
         "containerName": {
             "type": "string",
             "defaultValue": "backup",
@@ -71,7 +75,8 @@
         "virtualNetworkName": "valis2-west-VNET",
         "nsgName": "valis2-west-NSG",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'backup')]"
+        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'backup')]",
+        "storageAccountName2": "[concat(uniquestring(resourceGroup().id), 'restore')]"
     },
     "resources": [
         {
@@ -497,6 +502,18 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName2')]",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('storageAccountType2')]"
+            },
+            "kind": "StorageV2",
+            "properties": {},
+            "resources": []
         },
         {
             "apiVersion": "2015-06-15",
