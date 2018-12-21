@@ -503,6 +503,29 @@
                     "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-dc-dns.ps1"
                 }
             }
+        },
+        {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "S5-BServer-VM/install-dot-net-framework35-script",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName7'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.9",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/scripts/install-dot-net-framework35.ps1"
+                    ]
+                },
+                "protectedSettings": {
+                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-dot-net-framework35.ps1"
+                }
+            }
         }
     ],
     "outputs": {}
