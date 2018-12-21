@@ -4,7 +4,7 @@
     "parameters": {
         "sr_name": {
             "type": "string",
-            "defaultValue": "valis2-BSR2"
+            "defaultValue": "valis2-west-BSR"
         },
         "adminUsername": {
             "type": "string",
