@@ -4,9 +4,9 @@ Azure Workshop "Valis v0.2"
 ---------------
 Template "template.json"
 ---------------
-az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/rg.json --verbose --location westeurope --debug <br/><br/>
-az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North --debug<br/><br/>
-az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West --debug  
+az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/rg.json --verbose --location westeurope<br/><br/>
+az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North --no-wait<br/><br/>
+az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West 
 
 __valis2-North:__
 - S3-Veeam-NIC
@@ -36,6 +36,6 @@ __valis2-West:__
 - S5-DC-PublicIP
 - S5-DC-VM
 - S5-DC-VM_OsDisk
-- valis2-BSR
+- valis2-west-BSR
 - valis2-west-NSG
 - valis2-west-VNET
