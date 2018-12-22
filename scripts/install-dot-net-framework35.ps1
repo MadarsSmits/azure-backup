@@ -1,2 +1,2 @@
 Add-WindowsFeature NET-Framework-Core
-shutdown /t 0 /r
+Install-WindowsFeature -Name Hyper-V-PowerShell -Restart
