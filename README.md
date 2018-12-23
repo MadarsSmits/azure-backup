@@ -5,8 +5,8 @@ Azure Workshop "Valis v0.2"
 Template "template.json"
 ---------------
 az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/rg.json --verbose --location westeurope<br/><br/>
-az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North --no-wait<br/><br/>
-az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West 
+az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West --no-wait<br/><br/>
+az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North
 
 __valis2-West:__
 - lokrgawxn4wkabackup (Storage Account)

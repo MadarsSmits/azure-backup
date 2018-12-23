@@ -257,6 +257,11 @@
                     }
                 ]
             }
+        },
+        "plan": {
+            "name": "veeamavailabilityconsole",
+            "publisher": "veeam",
+            "product": "veeam-availability-console"
         }
     },
     {
@@ -294,6 +299,11 @@
                     }
                 ]
             }
+        },
+        "plan": {
+            "name": "veeamoffice365backup",
+            "publisher": "veeam",
+            "product": "office365backup"
         }
     },
     {
