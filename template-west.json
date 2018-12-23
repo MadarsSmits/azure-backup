@@ -42,7 +42,7 @@
         },
         "storageAccountType": {
             "type": "string",
-            "defaultValue": "Premium_LRS"
+            "defaultValue": "Standard_LRS"
         },
         "containerName": {
             "type": "string",
@@ -55,19 +55,19 @@
     "variables": {
         "nicName1": "S1-Linux-NIC",
         "nicName2": "S1-Windows-NIC",
-        "nicName6": "S5-DC-NIC",
-        "nicName7": "S5-BServer-NIC",
+        "nicName3": "S4-DC-NIC",
+        "nicName4": "S4-BServer-NIC",
         "addressPrefix": "10.3.0.0/16",
         "subnetName": "Subnet",
         "subnetPrefix": "10.3.0.0/24",
         "publicIPAddressName1": "S1-Linux-PublicIP",
         "publicIPAddressName2": "S1-Windows-PublicIP",
-        "publicIPAddressName6": "S5-DC-PublicIP",
-        "publicIPAddressName7": "S5-BServer-PublicIP",
+        "publicIPAddressName3": "S4-DC-PublicIP",
+        "publicIPAddressName4": "S4-BServer-PublicIP",
         "vmName1": "S1-Linux-VM",
         "vmName2": "S1-Windows-VM",
-        "vmName6": "S5-DC-VM",
-        "vmName7": "S5-BServer-VM",
+        "vmName3": "S4-DC-VM",
+        "vmName4": "S4-BServer-VM",
         "virtualNetworkName": "valis2-west-VNET",
         "nsgName": "valis2-west-NSG",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
@@ -172,7 +172,7 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[variables('publicIPAddressName6')]",
+            "name": "[variables('publicIPAddressName3')]",
             "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
@@ -181,7 +181,7 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[variables('publicIPAddressName7')]",
+            "name": "[variables('publicIPAddressName4')]",
             "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
@@ -271,11 +271,11 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[variables('nicName6')]",
+            "name": "[variables('nicName3')]",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]",
-                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName6'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName3'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
             ],
             "properties": {
@@ -285,7 +285,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName6'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName3'))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -298,11 +298,11 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[variables('nicName7')]",
+            "name": "[variables('nicName4')]",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]",
-                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName7'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName4'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
             ],
             "properties": {
@@ -312,7 +312,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName7'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName4'))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -399,17 +399,17 @@
         {
             "apiVersion": "2018-06-01",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[variables('vmName6')]",
+            "name": "[variables('vmName3')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName6'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName3'))]"
             ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "Standard_DS2_v2"
                 },
                 "osProfile": {
-                    "computerName": "[variables('vmName6')]",
+                    "computerName": "[variables('vmName3')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]"
                 },
@@ -427,7 +427,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName6'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName3'))]"
                         }
                     ]
                 }
@@ -436,17 +436,17 @@
         {
             "apiVersion": "2018-06-01",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[variables('vmName7')]",
+            "name": "[variables('vmName4')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName7'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName4'))]"
             ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "Standard_DS3_v2"
                 },
                 "osProfile": {
-                    "computerName": "[variables('vmName7')]",
+                    "computerName": "[variables('vmName4')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]"
                 },
@@ -471,7 +471,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName7'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName4'))]"
                         }
                     ]
                 }
@@ -501,10 +501,10 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "S5-DC-VM/install-dc-dns-script",
+            "name": "S4-DC-VM/install-dc-dns-script",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName6'))]"
+                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName3'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
@@ -524,10 +524,10 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "S5-BServer-VM/install-dot-net-framework35-script",
+            "name": "S4-BServer-VM/install-dot-net-framework35-script",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName7'))]"
+                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName4'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
