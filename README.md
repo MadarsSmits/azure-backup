@@ -2,7 +2,7 @@
 Azure Workshop "Valis v0.2"
 
 ---------------
-Template "template.json"
+Templates
 ---------------
 az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/rg.json --verbose --location westeurope<br/><br/>
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West --no-wait<br/><br/>
