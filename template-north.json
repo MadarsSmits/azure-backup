@@ -1,6 +1,6 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-    "contentVersion": "1.0.0.0",
+    "contentVersion": "1.0.0.1",
     "parameters": {
         "adminUsername": {
             "type": "string",
@@ -286,7 +286,7 @@
                     "publisher": "veeam",
                     "offer": "office365backup",
                     "sku": "veeamoffice365backup",
-                    "version": "1.0.0"
+                    "version": "1.0.5"
                 },
                 "osDisk": {
                     "createOption": "FromImage"
