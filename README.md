@@ -11,6 +11,12 @@ az deployment create --template-uri https://raw.githubusercontent.com/MadarsSmit
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-west.json --verbose --resource-group valis2-West --no-wait
 ```
 ```
+az vm image accept-terms --urn veeam:veeam-availability-console:veeamavailabilityconsole:2.1.0
+```
+```
+az vm image accept-terms --urn veeam:office365backup:veeamoffice365backup:1.0.5
+```
+```
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North
 ```
 
