@@ -286,7 +286,7 @@
                     "publisher": "veeam",
                     "offer": "office365backup",
                     "sku": "veeamoffice365backup",
-                    "version": "1.0.5"
+                    "version": "3.0.0"
                 },
                 "osDisk": {
                     "createOption": "FromImage"

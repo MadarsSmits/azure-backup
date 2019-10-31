@@ -14,7 +14,7 @@ az group deployment create --template-uri https://raw.githubusercontent.com/Mada
 az vm image accept-terms --urn veeam:veeam-availability-console:veeamavailabilityconsole:3.0.0
 ```
 ```
-az vm image accept-terms --urn veeam:office365backup:veeamoffice365backup:1.0.5
+az vm image accept-terms --urn veeam:office365backup:veeamoffice365backup:3.0.0
 ```
 ```
 az group deployment create --template-uri https://raw.githubusercontent.com/MadarsSmits/azure-backup/master/template-north.json --verbose --resource-group valis2-North
