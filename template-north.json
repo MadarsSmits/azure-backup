@@ -244,7 +244,7 @@
                     "publisher": "veeam",
                     "offer": "veeam-availability-console",
                     "sku": "veeamavailabilityconsole",
-                    "version": "2.1.0"
+                    "version": "3.0.0"
                 },
                 "osDisk": {
                     "createOption": "FromImage"
