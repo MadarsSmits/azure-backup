@@ -55,3 +55,5 @@ __valis2-North:__
 - valis2-north-NSG
 - valis2-north-VNET
 - z3f4jqnr5rbhorestore (Storage Account)
+
+TESTS
